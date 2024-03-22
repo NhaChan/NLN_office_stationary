@@ -1,4 +1,4 @@
-import { Col } from 'antd'
+import { Badge, Col } from 'antd'
 import React from 'react'
 import { WrapperHeader, WrapperHeaderAccount, WrapperTextHeader, WrapperTextHeaderSmall } from './style'
 import {
@@ -13,7 +13,7 @@ const HeaderComponent = () => {
     <div>
       <WrapperHeader gutter={16}>
         <Col span={6} >
-            <WrapperTextHeader>Office Stationary</WrapperTextHeader>
+          <WrapperTextHeader>Office Stationary</WrapperTextHeader>
         </Col>
         <Col span={12}>
           <ButttonInputSearch
@@ -35,8 +35,10 @@ const HeaderComponent = () => {
             </div>
           </WrapperHeaderAccount>
           <div>
-              <ShoppingCartOutlined style={{fontSize: '30px', color: '#fff'}} />
-              <WrapperTextHeaderSmall>Giỏ hàng</WrapperTextHeaderSmall> 
+            <Badge count={4} size="small">
+              <ShoppingCartOutlined style={{ fontSize: '30px', color: '#fff' }} />
+            </Badge>
+            <WrapperTextHeaderSmall>Giỏ hàng</WrapperTextHeaderSmall>
           </div>
         </Col>
       </WrapperHeader>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-// import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
+import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 
 export const WrapperTypeProduct = styled.div`
     display: flex;
@@ -9,23 +9,23 @@ export const WrapperTypeProduct = styled.div`
     height: 44px;
 `
 
-// export const WrapperButtonMore = styled(ButtonComponent)`
-//     &:hover {
-//         color: #fff;
-//         background: #9255FD;
-//         span {
-//             color: #fff;
-//         }
-//     }
-//     width: 100%;
-//     color: #9255FD;
-//     text-align: center;
-//     cursor: ${(props) => props.disabled ? 'not-allowed' : 'pointers'}
-// `
+export const WrapperButtonMore = styled(ButtonComponent)`
+    &:hover {
+        color: #fff;
+        background: #9255FD;
+        span {
+            color: #fff;
+        }
+    }
+    width: 100%;
+    color: #9255FD;
+    text-align: center;
+    cursor: ${(props) => props.disabled ? 'not-allowed' : 'pointers'}
+`
 
-// export const WrapperProducts = styled.div`
-//     display: flex;
-//     gap: 14px;
-//     margin-top:20px;
-//     flex-wrap: wrap;
-// `
+export const WrapperProducts = styled.div`
+    display: flex;
+    gap: 14px;
+    margin-top:20px;
+    flex-wrap: wrap;
+`
