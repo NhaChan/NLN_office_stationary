@@ -8,17 +8,17 @@ import { useQuery } from '@tanstack/react-query'
 
 function App() {
 
-  useEffect(() => {
-    fetchApi()
-  }, [])
+  // useEffect(() => {
+  //   fetchApi()
+  // }, [])
 
-  const fetchApi = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all`);
-    return res.data
-  }
+  // const fetchApi = async () => {
+  //   const res = await axios.get(`${process.env.REACT_APP_API_URL}/product/get-all`);
+  //   return res.data
+  // }
 
-  const query = useQuery({ queryKey: ['toods'], queryFn: fetchApi })
-  console.log('query', query)
+  // const query = useQuery({ queryKey: ['toods'], queryFn: fetchApi })
+  // console.log('query', query)
 
   return (
     <div>

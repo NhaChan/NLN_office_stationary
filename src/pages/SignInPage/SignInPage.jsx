@@ -10,11 +10,12 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import * as UserService from '../../services/UserService'
 import { useMutationHooks } from '../../hooks/useMutationHook'
 import Loading from '../../components/LoadingComponent/Loading'
-// import jwt_decode from "jwt-decode";
 import { jwtDecode } from 'jwt-decode';
 
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUser } from '../../redux/slides/userSlide'
+import { error } from '../../components/Message/Message'
+
 
 const SignInPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false)
@@ -35,8 +36,8 @@ const SignInPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      if(location?.state) {
-        navigate(location?.state)
+      if (data?.status === 'ERR') {
+        error(data?.message);
       }else {
         navigate('/')
       }
