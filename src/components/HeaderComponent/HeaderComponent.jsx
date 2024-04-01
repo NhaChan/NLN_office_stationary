@@ -81,15 +81,16 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     <div >
       <WrapperHeader style={{ justifyContent: isHiddenSearch && isHiddenSearch ? 'space-between' : 'unset' }}>
           <Col span={6} >
-            <WrapperTextHeader>
-              <img src="../../assets/images/slider1.jpg" style={{ maxWidth: '100px', maxHeight: '100px',}}  />
+            <WrapperTextHeader to='/'> OfficeStationary
+              {/* <img src="../../assets/images/slider1.jpg" style={{ maxWidth: '100px', maxHeight: '100px',}}  /> */}
+
             </WrapperTextHeader>
           </Col>
         {!isHiddenSearch && (
           <Col span={12}>
             <ButttonInputSearch
               size="large"
-              bordered={false}
+              variant="outlined"
               textbutton="Tìm kiếm"
               placeholder="input search text"
             />
