@@ -16,7 +16,7 @@ const ButttonInputSearch = (props) => {
       <InputComponent
         size={size}
         placeholder={placeholder}
-        bordered={bordered}
+        variant="outlined"
         style={{ backgroundColor: backgroundColorInput, borderRadius: '0px'  }}
         {...props}
       />
