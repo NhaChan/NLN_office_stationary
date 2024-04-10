@@ -5,6 +5,10 @@ export const WrapperHeader = styled.h1`
     color: #000;
     font-size: 18px;
     margin: 4px 0;
+    padding: 6px;
+    display: flex;
+    justify-content: center; /* Canh giữa theo chiều ngang */
+    align-items: center; /* Canh giữa theo chiều dọc */
 `
 export const WrapperContentProfile = styled.div`
     display: flex;
