@@ -14,6 +14,7 @@ import * as UserService from '../../services/UserService'
 import { resetUser } from '../../redux/slides/userSlide'
 import { useEffect } from 'react';
 import Loading from '../LoadingComponent/Loading';
+import logo from '../../assets/images/1.png'
 
 
 const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
@@ -80,14 +81,13 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   return (
     <div >
       <WrapperHeader style={{ justifyContent: isHiddenSearch && isHiddenSearch ? 'space-between' : 'unset' }}>
-          <Col span={6} >
-            <WrapperTextHeader to='/'> OfficeStationary
-              {/* <img src="../../assets/images/slider1.jpg" style={{ maxWidth: '100px', maxHeight: '100px',}}  /> */}
-
-            </WrapperTextHeader>
-          </Col>
+        <Col span={4} >
+          <WrapperTextHeader to='/' >
+              <img src={logo} style={{ maxWidth: '120px', maxHeight: '120px' }} alt="Logo" />
+          </WrapperTextHeader>
+        </Col>
         {!isHiddenSearch && (
-          <Col span={12}>
+          <Col span={13}>
             <ButttonInputSearch
               size="large"
               variant="outlined"
@@ -96,10 +96,10 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
             />
           </Col>
         )}
-        <Col span={6} style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+        <Col span={7} style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
           <Loading isPending={loading}>
             <WrapperHeaderAccount >
-            {userAvatar ? (
+              {userAvatar ? (
                 <img src={userAvatar} alt="avatar" style={{
                   height: '30px',
                   width: '30px',
@@ -108,12 +108,12 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                   marginLeft: '30px',
                 }} />
               ) : (
-              <UserOutlined style={{ fontSize: '30px' }} />
+                <UserOutlined style={{ fontSize: '30px' }} />
               )}
               {user?.access_token ? (
                 <>
                   <Popover content={content} trigger="click" open={isOpenPopup}>
-                    <div style={{ cursor: 'pointer',maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis' }} onClick={() => setIsOpenPopup((prev) => !prev)}>{userName?.length ? userName : user?.email}</div>
+                    <div style={{ cursor: 'pointer', maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis' }} onClick={() => setIsOpenPopup((prev) => !prev)}>{userName?.length ? userName : user?.email}</div>
                   </Popover>
                 </>
               ) : (
@@ -128,15 +128,14 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                 </div>
               )}
 
-
             </WrapperHeaderAccount>
           </Loading>
-            <div>
-              <Badge count={4} size="small">
-                <ShoppingCartOutlined style={{ fontSize: '30px', color: '#fff' }} />
-              </Badge>
-              <WrapperTextHeaderSmall>Giỏ hàng</WrapperTextHeaderSmall>
-            </div>
+          <div>
+            <Badge count={4} size="small">
+              <ShoppingCartOutlined style={{ fontSize: '30px', color: '#fff' }} />
+            </Badge>
+            <WrapperTextHeaderSmall>Giỏ hàng</WrapperTextHeaderSmall>
+          </div>
         </Col>
       </WrapperHeader>
     </div>
