@@ -1,15 +1,18 @@
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import ProductDetailsComponent from '../../components/ProductDetailsComponent/ProductDetailsComponent'
+import { FastBackwardOutlined } from '@ant-design/icons'
 
 const ProductDetailsPage = () => {
-  // const {id} = useParams()
-  // const navigate = useNavigate()
+  const {id} = useParams()
+  const navigate = useNavigate()
   return (
-    <div style={{width: '100%',background: '#efefef', height: '100%'}}>
+    <div style={{width: '100%', height: '100%', backgroundColor: 'rgb(239, 239, 239)' }}>
       <div style={{ width: '1270px', height: '100%', margin: '0 auto'}} >
-        <h5><span style={{cursor: 'pointer', fontWeight: 'bold'}} >Trang chủ</span> - Chi tiết sản phẩm</h5>
-        <ProductDetailsComponent/>
+      <div style={{ padding: '20px 0px 20px'}}>
+          <span style={{cursor: 'pointer', fontWeight: 'bold', fontSize: '20px', color:'green'}} onClick={() => {navigate('/')}}><FastBackwardOutlined /> Chi tiết sản phẩm</span>
+        </div>
+        <ProductDetailsComponent idProduct={id} />
       </div>
     </div>
   )

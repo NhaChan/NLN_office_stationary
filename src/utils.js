@@ -27,14 +27,7 @@ export function getItem(label, key, icon, children, type) {
     };
 }
 
-export const convertPrice = (price) => {
-    try {
-        const result  = price?.toLocaleString().replaceAll(',', '.')
-        return `${result} VND`
-    } catch (error) {
-        return null
-    }
-}
+
 
 export const renderOptions = (arr) => {
     let results = []
@@ -51,4 +44,14 @@ export const renderOptions = (arr) => {
         value: 'add_type'
     })
     return results
+}
+
+//Gia san pham
+export const convertPrice = (price) => {
+    try {
+        const result  = price?.toLocaleString().replaceAll(',', '.')
+        return `${result} VND`
+    } catch (error) {
+        return null
+    }
 }
