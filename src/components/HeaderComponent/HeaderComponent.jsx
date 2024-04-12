@@ -14,7 +14,7 @@ import * as UserService from '../../services/UserService'
 import { resetUser } from '../../redux/slides/userSlide'
 import { useEffect } from 'react';
 import Loading from '../LoadingComponent/Loading';
-import logo from '../../assets/images/1.png'
+import logo from '../../assets/images/2.png'
 
 
 const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
@@ -81,13 +81,13 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   return (
     <div >
       <WrapperHeader style={{ justifyContent: isHiddenSearch && isHiddenSearch ? 'space-between' : 'unset' }}>
-        <Col span={4} >
+        <Col span={3} >
           <WrapperTextHeader to='/' >
-              <img src={logo} style={{ maxWidth: '120px', maxHeight: '120px' }} alt="Logo" />
+              <img src={logo} style={{ maxWidth: '100px', maxHeight: '100px' }} alt="Logo" />
           </WrapperTextHeader>
         </Col>
         {!isHiddenSearch && (
-          <Col span={13}>
+          <Col span={14}>
             <ButttonInputSearch
               size="large"
               variant="outlined"
@@ -130,12 +130,14 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
 
             </WrapperHeaderAccount>
           </Loading>
-          <div>
-            <Badge count={4} size="small">
-              <ShoppingCartOutlined style={{ fontSize: '30px', color: '#fff' }} />
+          {!isHiddenCart && (
+          <div  onClick={() => navigate('/order')} style={{cursor: 'pointer'}}>
+            <Badge  count={4} size="small">
+              <ShoppingCartOutlined style={{ fontSize: '30px', color: '#fff', paddingLeft: '20px' }} />
             </Badge>
             <WrapperTextHeaderSmall>Giỏ hàng</WrapperTextHeaderSmall>
           </div>
+          )}
         </Col>
       </WrapperHeader>
     </div>

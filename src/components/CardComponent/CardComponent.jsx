@@ -24,7 +24,7 @@ const CardComponent = (props) => {
                 src={logo}
                 style={{
                     width: '68px',
-                    height: '14px',
+                    height: '16px',
                     position: 'absolute',
                     top: -1,
                     left: -1,
@@ -41,7 +41,7 @@ const CardComponent = (props) => {
             <WrapperPriceText>
                 <span style={{ marginRight: '8px' }}>{convertPrice(price)}</span>
                 <WrapperDiscountText>
-                    - {discount || 5} %
+                    - {discount} %
                 </WrapperDiscountText>
             </WrapperPriceText>
         </WrapperCardStyle>

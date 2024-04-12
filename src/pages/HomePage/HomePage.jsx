@@ -89,12 +89,12 @@ const HomePage = () => {
                             textbutton={isPreviousData ? 'Load more' : "Xem thêm"}
                             type="outline"
                             styleButton={{
-                                border: `1px solid ${products?.total === products?.data?.length ? '#f5f5f5' : '#9255FD'}`,
-                                color: `${products?.total === products?.data?.length ? '#f5f5f5' : '#9255FD'}`,
+                                border: `1px solid ${products?.total === products?.data?.length ? '#f5f5f5' : '#87b5d3'}`,
+                                color: `${products?.total === products?.data?.length ? '#f5f5f5' : '#87b5d3 '}`,
                                 width: '240px', height: '38px', borderRadius: '4px'
                             }}
                             disabled={isPreviousData || products?.total === products?.data?.length || products?.totalPage === 1}
-                            styleTextButton={{ fontWeight: 500, color: products?.total === products?.data?.length ? '#fff' : '#9255FD' }}
+                            styleTextButton={{ fontWeight: 500, color: products?.total === products?.data?.length ? '#fff' : '#87b5d3' }}
                             onClick={() => setLimit((prev) => prev + 6)}
                         />
                     </div>
