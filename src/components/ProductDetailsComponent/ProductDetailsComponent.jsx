@@ -1,22 +1,30 @@
-import { Col, Image, Row } from 'antd'
-import React, { useState } from 'react'
-import { WrapperAddressProduct, WrapperDiscriptionProduct, WrapperInputNumber, WrapperPriceProduct, WrapperPriceTextProduct, WrapperQualityProduct, WrapperStyleColImage, WrapperStyleImageSmall, WrapperStyleNameProduct } from './style'
-import { WrapperStyleTextSell } from '../CardComponent/style'
-import imageProduct from '../../assets/images/test.webp'
+import { Col, Image, Rate, Row } from 'antd'
+import React from 'react'
 import imageProductSmall from '../../assets/images/imagesmall.webp'
-import ButtonComponent from '../ButtonComponent/ButtonComponent'
+import { WrapperStyleImageSmall, WrapperStyleColImage, WrapperStyleNameProduct, WrapperStyleTextSell, WrapperPriceProduct, WrapperPriceTextProduct, WrapperAddressProduct, WrapperQualityProduct, WrapperInputNumber, WrapperBtnQualityProduct, WrapperDiscriptionProduct } from './style'
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons'
+import ButtonComponent from '../ButtonComponent/ButtonComponent'
 import * as ProductService from '../../services/ProductService'
 import { useQuery } from '@tanstack/react-query'
+import Loading from '../LoadingComponent/Loading'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { addOrderProduct, resetOrder } from '../../redux/slides/orderSlide'
 import { convertPrice } from '../../utils'
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import * as message from '../Message/Message'
+import { useMemo } from 'react'
 
 
 const ProductDetailsComponent = ({idProduct}) => {
     const [numProduct, setNumProduct] = useState(1)
     const user = useSelector((state) => state.user)
-
-
+    const order = useSelector((state) => state.order)
+    const [errorLimitOrder,setErrorLimitOrder] = useState(false)
+    const navigate = useNavigate()
+    const location = useLocation()
+    const dispatch = useDispatch()
 
     const onChange = (value) => { 
         setNumProduct(Number(value))
@@ -42,9 +50,48 @@ const ProductDetailsComponent = ({idProduct}) => {
         }
     }
 
+    useEffect(() => {
+        const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id) 
+        if((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
+            setErrorLimitOrder(false)
+        } else if(productDetails?.countInStock === 0){
+            setErrorLimitOrder(true)
+        }
+    },[numProduct])
+
+    useEffect(() => {
+        if (order.isSucessOrder) {
+            message.success('Đã thêm vào giỏ hàng');
+            dispatch(resetOrder()); // Gửi action resetOrder tới reducer
+        }
+    }, [order.isSucessOrder, dispatch]);
+    
+
     // const {data: productDetails } = useQuery(['product-details', idProduct], fetchGetDetailsProduct, { enabled : !!idProduct})
     const {data: productDetails } = useQuery({ queryKey: ['product-details', idProduct], queryFn: fetchGetDetailsProduct, enabled: !!idProduct });
 
+    const handleAddOrderProduct = () => {
+        if(!user?.id) {
+            navigate('/sign-in', {state: location?.pathname})
+        }else {
+            const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
+            if((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
+                dispatch(addOrderProduct({
+                    orderItem: {
+                        name: productDetails?.name,
+                        amount: numProduct,
+                        image: productDetails?.image,
+                        price: productDetails?.price,
+                        product: productDetails?._id,
+                        discount: productDetails?.discount,
+                        countInstock: productDetails?.countInStock
+                    }
+                }))
+            } else {
+                setErrorLimitOrder(true)
+            }
+        }
+    }
 
 
     return (
@@ -98,10 +145,12 @@ const ProductDetailsComponent = ({idProduct}) => {
                                 border: 'none',
                                 borderRadius: '4px'
                             }}
+                            onClick={handleAddOrderProduct}
                             textbutton={'Chọn mua'}
                             styleTextButton={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}
                         ></ButtonComponent>
-                        <ButtonComponent
+                            {errorLimitOrder && <div style={{color: 'red'}}>San pham hết hang</div>}
+                        {/* <ButtonComponent
                             size={40}
                             styleButton={{
                                 background: '#fff',
@@ -112,7 +161,7 @@ const ProductDetailsComponent = ({idProduct}) => {
                             }}
                             textbutton={'Mua trả sau'}
                             styleTextButton={{ color: 'rgb(13, 92, 182)', fontSize: '15px' }}
-                        ></ButtonComponent>
+                        ></ButtonComponent> */}
                     </div>
                 </div>
             </Col>
