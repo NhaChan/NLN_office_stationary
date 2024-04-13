@@ -235,7 +235,7 @@ const OrderPage = () => {
             <WrapperListOrder>
               {order?.orderItems?.map((order) => {
                 return (
-                  <WrapperItemOrder>
+                  <WrapperItemOrder key={order?.product}>
                     <div style={{ width: '390px', display: 'flex', alignItems: 'center', gap: 4 }}>
                       <CustomCheckbox onChange={onChange} value={order?.product} checked={listChecked.includes(order?.product)} ></CustomCheckbox>
                       <img src={ order?.image } style={{ width: '77px', height: '79px', objectFit: 'cover' }} />
@@ -272,8 +272,8 @@ const OrderPage = () => {
               <WrapperInfo>
                 <div>
                   <span>Địa chỉ: </span>
-                  <span style={{ fontWeight: 'bold' }}> </span>
-                  <span onClick={handleChangeAddress} style={{ color: '#4988B2', cursor: 'pointer' }}>Thay đổi</span>
+                  <span style={{ fontWeight: 'bold' }}> { `${user?.address} - ${user?.city}`} </span>
+                  <span onClick={handleChangeAddress} style={{ color: '#4988B2', cursor: 'pointer' }}> Thay đổi</span>
                 </div>
               </WrapperInfo>
               <WrapperInfo>
@@ -319,9 +319,8 @@ const OrderPage = () => {
           name="basic"
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 20 }}
-          // onFinish={onUpdateUser}
           autoComplete="on"
-        // form={form}
+          form={form}
         >
           <Form.Item
             label="Name"
