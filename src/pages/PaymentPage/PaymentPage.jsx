@@ -24,7 +24,6 @@ const PaymentPage = () => {
   const [delivery, setDelivery] = useState('fast')
   const [payment, setPayment] = useState('later_money')
   const navigate = useNavigate()
-  const [sdkReady , setSdkReady] = useState(false)
 
   const [isOpenModalUpdateInfo, setIsOpenModalUpdateInfo] = useState(false)
   const [stateUserDetails, setStateUserDetails] = useState({
@@ -92,7 +91,6 @@ const PaymentPage = () => {
   const handleAddOrder = () => {
     if(user?.access_token && order?.orderItemsSlected && user?.name
       && user?.address && user?.phone && user?.city && priceMemo && user?.id) {
-        // eslint-disable-next-line no-unused-expressions
         mutationAddOrder.mutate(
           { 
             token: user?.access_token, 
@@ -136,17 +134,29 @@ const PaymentPage = () => {
   )
 
   const {isLoading, data} = mutationUpdate
-  const {data: dataAdd,isLoading:isLoadingAddOrder, isSuccess, isError} = mutationAddOrder
 
+  const {data: dataAdd,isLoading:isLoadingAddOrder, isSuccess, isError} = mutationAddOrder
+  console.log('order', order)
   useEffect(() => {
+    // console.log('thongbao',dataAdd?.status)
     if (isSuccess && dataAdd?.status === 'OK') {
       const arrayOrdered = []
-      order?.orderItemsSlected?.forEach(element => {
+      // console.log('2', arrayOrdered)
+      // console.log('1',order?.orderItemsSlected)
+      order?.orderItemsSlected?.forEach((element) => {
+      // console.log('order',element.product)
         arrayOrdered.push(element.product)
       });
       dispatch(removeAllOrderProduct({listChecked: arrayOrdered}))
       message.success('Đặt hàng thành công')
-      // navigate('/my-order')
+      navigate('/orderSuccess', {
+        state: {
+          delivery,
+          payment,
+          orders: order?.orderItemsSlected,
+          totalPriceMemo: totalPriceMemo
+        }
+      })
     } else if (isError) {
       message.error()
     }
