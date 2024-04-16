@@ -2,7 +2,7 @@ import { Button, Drawer, Form, Select } from 'antd'
 import React, { useState } from 'react'
 import { WrapperHeader } from './style'
 import TableComponent from '../TableComponent/TableComponent'
-import { convertPrice} from '../../utils'
+import { convertPrice } from '../../utils'
 import * as message from '../Message/Message'
 
 import * as OrderService from '../../services/OrderService'
@@ -22,18 +22,19 @@ const AdminOrder = () => {
     setEditFormVisible(true);
   };
 
-const handleEditFormSubmit = async (values) => {
-  try {
-    const updatedOrder = { ...selectedOrder, isDelivered: values.isDelivered };
-    await OrderService.updateOrder(user?.access_token, updatedOrder);
-    message.success('Cập nhật trạng thái đơn hàng thành công!');
-    // Đóng form chỉnh sửa
-    setEditFormVisible(false);
-  } catch (error) {
-    console.error('Error updating order:', error);
-    message.error('Đã xảy ra lỗi khi cập nhật trạng thái đơn hàng.');
-  }
-};
+  const handleEditFormSubmit = async (values) => {
+    try {
+      const updatedOrder = { ...selectedOrder, isDelivered: values.isDelivered };
+      await OrderService.updateOrder(selectedOrder._id, values.isDelivered);
+      message.success('Cập nhật trạng thái đơn hàng thành công!');
+      // Đóng form chỉnh sửa
+      setEditFormVisible(false);
+      queryOrder.refetch();
+    } catch (error) {
+      console.error('Error updating order:', error);
+      message.error('Đã xảy ra lỗi khi cập nhật trạng thái đơn hàng.');
+    }
+  };
 
   const getAllOrder = async () => {
     const res = await OrderService.getAllOrder(user?.access_token)
@@ -48,7 +49,7 @@ const handleEditFormSubmit = async (values) => {
   const renderAction = (text, record) => (
     <Button type="link" onClick={() => showEditForm(record)}>Edit</Button>
   );
-  
+
 
 
   const columns = [
@@ -82,18 +83,21 @@ const handleEditFormSubmit = async (values) => {
       dataIndex: 'isDelivered',
       render: (isDelivered) => {
         let statusStyle = {}; // Khởi tạo đối tượng để lưu trữ CSS inline
-    
+
         // Kiểm tra nếu isDelivered là một chuỗi
         if (typeof isDelivered === 'string') {
           switch (isDelivered) {
             case 'Đã đặt':
-              statusStyle = { color: 'blue', fontWeight: 'bold', boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)' };
+              statusStyle = { fontWeight: 'bold', boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)' };
               return <span style={statusStyle}>Đã đặt hàng</span>;
+            case 'Đang giao':
+              statusStyle = { color: 'blue', fontWeight: 'bold', boxShadow: '0px 0px 5px 0px rgba(0,128,0,0.5)' };
+              return <span style={statusStyle}>Đang giao hàng</span>;
             case 'Đã giao':
-              statusStyle = { color: 'green',  boxShadow: '0px 0px 5px 0px rgba(0,128,0,0.5)' }; 
-              return <span style={statusStyle}>Đã giao hàng</span>;
+              statusStyle = { color: 'green', fontWeight: 'bold', boxShadow: '0px 0px 5px 0px rgba(0,128,0,0.5)' };
+              return <span style={statusStyle}>Đã giao hàng</span>; 
             case 'Đã hủy':
-              statusStyle = { color: 'red', textDecoration: 'line-through', boxShadow: '0px 0px 5px 0px rgba(128,0,0,0.5)' }; 
+              statusStyle = { color: 'red', fontWeight: 'bold', textDecoration: 'line-through', boxShadow: '0px 0px 5px 0px rgba(128,0,0,0.5)' };
               return <span style={statusStyle}>Đã hủy đơn</span>;
             default:
               return 'Không xác định';
@@ -103,14 +107,14 @@ const handleEditFormSubmit = async (values) => {
         }
       }
     },
-    
+
     {
       title: 'Thực hiện',
       dataIndex: 'action',
       render: renderAction
     },
-    
-    
+
+
 
   ];
 
@@ -137,8 +141,8 @@ const handleEditFormSubmit = async (values) => {
           <Form.Item name="isDelivered" label="Trạng thái">
             <Select>
               <Option value="Đã đặt">Đã đặt</Option>
+              <Option value="Đang giao">Đang giao hàng</Option>
               <Option value="Đã giao">Đã giao</Option>
-              <Option value="Đã hủy">Đã hủy</Option>
             </Select>
           </Form.Item>
           <Form.Item>

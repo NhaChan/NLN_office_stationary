@@ -1,10 +1,5 @@
 import { axiosJWT } from "./UserService"
 
-// export const createProduct = async (data) => {
-//   const res = await axios.post(`${process.env.REACT_APP_API_URL}/product/create`, data)
-//   return res.data
-// // }
-// http://localhost:3001/api/order/get-order-details/639724669c6dda4fa11edcde
 export const createOrder = async (data,access_token) => {
   const res = await axiosJWT.post(`${process.env.REACT_APP_API_URL}/order/create/${data.user}`, data, {
       headers: {
@@ -50,3 +45,40 @@ export const getAllOrder = async (access_token) => {
   })
   return res.data
 }
+
+// export const updateOrder = async (id, access_token, data) => {
+//   const res = await axiosJWT.put(`${process.env.REACT_APP_API_URL}/order/update/${id}`, data, {
+//       headers: {
+//           token: `Bearer ${access_token}`,
+//       }
+//   })
+//   return res.data
+// }
+
+export const updateOrder = async (id, isDelivered) => {
+  try {
+    const res = await axiosJWT.put(`${process.env.REACT_APP_API_URL}/order/update/${id}`, { isDelivered });
+    return res.data;
+  } catch (error) {
+    console.error('Error updating order:', error);
+    throw error;
+  }
+};
+
+
+// export const updateOrder = async (access_token, orderId, data) => {
+//   try {
+//     const res = await axiosJWT.put(
+//       `${process.env.REACT_APP_API_URL}/order/update/${orderId}`,
+//       data,
+//       {
+//         headers: {
+//           token: `Bearer ${access_token}`,
+//         },
+//       }
+//     );
+//     return res.data;
+//   } catch (error) {
+//     throw error; // Ném lỗi để xử lý ở nơi gọi hàm này
+//   }
+// };
