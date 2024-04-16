@@ -41,6 +41,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     dispatch(resetUser())
     setLoading(false)
     console.log(res);
+    navigate('/')
   }
 
   useEffect(() => {

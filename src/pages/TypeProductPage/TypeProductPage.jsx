@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import NavBarComponent from '../../components/NavbarComponent/NavBarComponent'
 import CardComponent from '../../components/CardComponent/CardComponent'
 import { Col, Pagination, Row } from 'antd'
 import { WrapperNavbar, WrapperProducts } from './style'

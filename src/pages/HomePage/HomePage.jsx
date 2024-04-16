@@ -6,7 +6,6 @@ import slider1 from '../../assets/images/S1.png';
 import slider2 from '../../assets/images/S4.png';
 import slider3 from '../../assets/images/S3.png';
 import CardComponent from "../../components/CardComponent/CardComponent";
-import NavBarComponent from "../../components/NavbarComponent/NavBarComponent";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import { useSelector } from "react-redux";
 import * as ProductService from '../../services/ProductService'
