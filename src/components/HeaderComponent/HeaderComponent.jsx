@@ -14,7 +14,7 @@ import * as UserService from '../../services/UserService'
 import { resetUser } from '../../redux/slides/userSlide'
 import { useEffect } from 'react';
 import Loading from '../LoadingComponent/Loading';
-import logo from '../../assets/images/2.png'
+import logo from '../../assets/images/1.png'
 
 
 const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
@@ -27,7 +27,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   const [userAvatar, setUserAvatar] = useState('')
   // const [search, setSearch] = useState('')
   const [isOpenPopup, setIsOpenPopup] = useState(false)
-  // const order = useSelector((state) => state.order)  
+  const order = useSelector((state) => state.order)  
   const [loading, setLoading] = useState(false)
   const handleNavigateLogin = () => {
     navigate('/sign-in')
@@ -35,9 +35,10 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
 
   const handleLogout = async () => {
     setLoading(true)
-    await UserService.logoutUser()
+    const res = await UserService.logoutUser()
     dispatch(resetUser())
     setLoading(false)
+    console.log(res);
   }
 
   useEffect(() => {
@@ -81,7 +82,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   return (
     <div >
       <WrapperHeader style={{ justifyContent: isHiddenSearch && isHiddenSearch ? 'space-between' : 'unset' }}>
-        <Col span={3} >
+        <Col span={4} >
           <WrapperTextHeader to='/' >
               <img src={logo} style={{ maxWidth: '100px', maxHeight: '100px' }} alt="Logo" />
           </WrapperTextHeader>
