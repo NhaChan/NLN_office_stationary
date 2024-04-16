@@ -11,6 +11,7 @@ import { useMutationHooks } from '../../hooks/useMutationHook';
 import * as message from '../../components/Message/Message'
 
 const MyOrderPage = () => {
+  const [disabledButtons, setDisabledButtons] = useState({});
   const location = useLocation()
   const { state } = location
   const navigate = useNavigate()
@@ -45,9 +46,11 @@ const MyOrderPage = () => {
   )
 
   const handleCanceOrder = (order) => {
+    setDisabledButtons({ ...disabledButtons, [order._id]: false });
     mutation.mutate({ id: order._id, token: state?.token, orderItems: order?.orderItems, userId: user.id }, {
       onSuccess: () => {
         queryOrder.refetch()
+        setDisabledButtons({ ...disabledButtons, [order._id]: true });
       },
     })
   }
@@ -100,11 +103,11 @@ const MyOrderPage = () => {
                     <span style={{ fontSize: '14px', fontWeight: 'bold' }}>Trạng thái</span>
                     <div>
                       <span style={{ color: 'rgb(255, 66, 78)' }}>Giao hàng: </span>
-                      <span style={{ color: 'rgb(90, 32, 193)', fontWeight: 'bold' }}>{`${order.isDelivered ? 'Đã giao hàng' : 'Chưa giao hàng'}`}</span>
+                      <span style={{ color: 'rgb(90, 32, 193)', fontWeight: 'bold' }}>{`${order.isDelivered}`}</span>
                     </div>
                     <div>
                       <span style={{ color: 'rgb(255, 66, 78)' }}>Thanh toán: </span>
-                      <span style={{ color: 'rgb(90, 32, 193)', fontWeight: 'bold' }}>{`${order.isPaid ? 'Đã thanh toán' : 'Chưa thanh toán'}`}</span>
+                      <span style={{ color: 'rgb(90, 32, 193)', fontWeight: 'bold' }}>{`${order.isPaid ? 'Thanh toán chuyển khoản khi nhận hàng' : 'Thanh toán tiền mặt'}`}</span>
                     </div>
                   </WrapperStatus>
                   {renderProduct(order?.orderItems)}
@@ -122,10 +125,13 @@ const MyOrderPage = () => {
                         styleButton={{
                           height: '36px',
                           border: '1px solid #9255FD',
-                          borderRadius: '4px'
+                          borderRadius: '4px',
+                          background: 'rgb(255, 57, 69)'
+                          
                         }}
                         textbutton={'Hủy đơn hàng'}
-                        styleTextButton={{ color: '#9255FD', fontSize: '14px' }}
+                        styleTextButton={{ color: '#fff', fontSize: '14px' }}
+                        disabled={disabledButtons[order._id]}
                       >
                       </ButtonComponent>
                       <ButtonComponent
