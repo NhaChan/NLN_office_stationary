@@ -6,10 +6,10 @@ export const useDebounce = (value, delay) => {
     useEffect(() => {
         const handle = setTimeout(() => {
             setValueDebounce(value)
-        }, [delay])
+        }, delay)
         return () => {
             clearTimeout(handle)
         }
-    }, [value])
+    }, [value, delay])
     return valueDebounce
 }
