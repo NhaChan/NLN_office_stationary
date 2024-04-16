@@ -77,8 +77,8 @@ const PaymentPage = () => {
   const diliveryPriceMemo = useMemo(() => {
     if (priceMemo >= 500000 && priceMemo < 1000000) {
       return 30000
-    } else if (priceMemo === 0) {
-      return 0
+    } else if (priceMemo === 0 || priceMemo > 1000000) {
+      return 1
     } else {
       return 50000
     }
@@ -171,27 +171,6 @@ const PaymentPage = () => {
     })
     form.resetFields()
     setIsOpenModalUpdateInfo(false)
-  }
-
-  const onSuccessPaypal = (details, data) => {
-    mutationAddOrder.mutate(
-      { 
-        token: user?.access_token, 
-        orderItems: order?.orderItemsSlected, 
-        fullName: user?.name,
-        address:user?.address, 
-        phone:user?.phone,
-        city: user?.city,
-        paymentMethod: payment,
-        itemsPrice: priceMemo,
-        shippingPrice: diliveryPriceMemo,
-        totalPrice: totalPriceMemo,
-        user: user?.id,
-        isPaid :true,
-        paidAt: details.update_time, 
-        email: user?.email
-      }
-    )
   }
 
 

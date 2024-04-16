@@ -58,8 +58,12 @@ const OrderPage = () => {
   }
 
   const handleDeleteOrder = (idProduct) => {
+    console.log('id',idProduct)
     dispatch(removeOrderProduct({ idProduct }))
+  console.log('remove',dispatch(removeOrderProduct({ idProduct })))
+
   }
+
 
   const handleOnchangeCheckAll = (e) => {
     if (e.target.checked) {
@@ -75,6 +79,7 @@ const OrderPage = () => {
 
   useEffect(() => {
     dispatch(selectedOrder({ listChecked }))
+  console.log(listChecked)
   }, [listChecked])
 
   useEffect(() => {
