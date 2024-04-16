@@ -15,8 +15,6 @@ import Loading from "../../components/LoadingComponent/Loading";
 import { useDebounce } from "../../hooks/useDebounce";
 
 
-// import { Flex } from "antd";
-
 
 const HomePage = () => {
     const searchProduct = useSelector((state) => state?.product?.search)
