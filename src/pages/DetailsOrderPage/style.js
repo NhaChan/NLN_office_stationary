@@ -37,8 +37,7 @@ export const WrapperLabel = styled.div`
 `
 export const WrapperContentInfo = styled.div`
   height: 118px;
-  width: 320px;
-  background-color: #fff;
+  background-color: #eeeded;
   border-radius: 6px;
   padding: 10px;
 `
@@ -78,6 +77,15 @@ export const WrapperItemLabel = styled.div`
 
 export const WrapperAllPrice = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-end
+  align-items: flex-end;
+  justify-content: flex-end
+`
+export const WrapperItemOrderInfo = styled.div`
+  padding: 17px 20px;
+  border-bottom: 1px solid #f5f5f5;
+  background: #fff;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  width: 100%;
+  justify-content: start;
 `

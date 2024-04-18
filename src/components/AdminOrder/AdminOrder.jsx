@@ -87,9 +87,9 @@ const AdminOrder = () => {
         // Kiểm tra nếu isDelivered là một chuỗi
         if (typeof isDelivered === 'string') {
           switch (isDelivered) {
-            case 'Đã đặt':
+            case 'Chờ xác nhận':
               statusStyle = { fontWeight: 'bold', boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)' };
-              return <span style={statusStyle}>Đã đặt hàng</span>;
+              return <span style={statusStyle}>Chờ xác nhận</span>;
             case 'Đang giao':
               statusStyle = { color: 'blue', fontWeight: 'bold', boxShadow: '0px 0px 5px 0px rgba(0,128,0,0.5)' };
               return <span style={statusStyle}>Đang giao hàng</span>;
@@ -140,7 +140,7 @@ const AdminOrder = () => {
         <Form layout="vertical" onFinish={handleEditFormSubmit} initialValues={selectedOrder}>
           <Form.Item name="isDelivered" label="Trạng thái">
             <Select>
-              <Option value="Đã đặt">Đã đặt</Option>
+              <Option value="Chờ xác nhận">Chờ xác nhận</Option>
               <Option value="Đang giao">Đang giao hàng</Option>
               <Option value="Đã giao">Đã giao</Option>
             </Select>

@@ -246,7 +246,7 @@ const OrderPage = () => {
                       <img src={ order?.image } style={{ width: '77px', height: '79px', objectFit: 'cover' }} />
                       <div style={{
                         width: 260,
-                        overflow: 'hidden',
+                        // overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         whiteSpace: 'nowrap'
                       }}>{order?.name}</div>

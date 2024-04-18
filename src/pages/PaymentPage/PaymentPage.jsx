@@ -77,22 +77,26 @@ const PaymentPage = () => {
   const diliveryPriceMemo = useMemo(() => {
     if (priceMemo >= 500000 && priceMemo < 1000000) {
       return 30000
-    } else if (priceMemo === 0 || priceMemo > 1000000) {
+    } else if (priceMemo >= 1000000 || priceMemo === 0) {
       return 1
     } else {
       return 50000
-    }
+    } 
   }, [priceMemo])
+  // console.log('price', diliveryPriceMemo)
 
   const totalPriceMemo = useMemo(() => {
     return Number(priceMemo) - Number(priceDiscountMemo) + Number(diliveryPriceMemo)
   },[priceMemo,priceDiscountMemo, diliveryPriceMemo])
 
+  // console.log('total', totalPriceMemo)
+
+
   const handleAddOrder = () => {
     if(user?.access_token && order?.orderItemsSlected && user?.name
       && user?.address && user?.phone && user?.city && priceMemo && user?.id) {
         mutationAddOrder.mutate(
-          { 
+          {
             token: user?.access_token, 
             orderItems: order?.orderItemsSlected, 
             fullName: user?.name,
@@ -136,7 +140,7 @@ const PaymentPage = () => {
   const {isLoading, data} = mutationUpdate
 
   const {data: dataAdd,isLoading:isLoadingAddOrder, isSuccess, isError} = mutationAddOrder
-  console.log('order', order)
+  // console.log('order', order)
   useEffect(() => {
     // console.log('thongbao',dataAdd?.status)
     if (isSuccess && dataAdd?.status === 'OK') {
