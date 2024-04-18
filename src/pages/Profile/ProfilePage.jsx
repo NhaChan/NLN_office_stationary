@@ -80,7 +80,7 @@ const ProfilePage = () => {
     }
     return (
         <div style={{ width: '1270px', margin: '0 auto', height: '500px' }}>
-            <WrapperHeader>Thông tin người dùng</WrapperHeader>
+            <WrapperHeader>Thông tin cá nhân</WrapperHeader>
             <Loading isPending={isPending}>
                 <WrapperContentProfile>
                     <WrapperInput>
