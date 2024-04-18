@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import * as OrderService from '../../services/OrderService'
 import { useSelector } from 'react-redux';
 import { convertPrice } from '../../utils';
-import { WrapperItemOrder, WrapperListOrder, WrapperHeaderItem, WrapperFooterItem, WrapperContainer, WrapperStatus } from './style';
+import { WrapperItemOrder, WrapperListOrder, WrapperHeaderItem, WrapperFooterItem, WrapperContainer, WrapperStatus, WrapperStatusCancel } from './style';
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutationHooks } from '../../hooks/useMutationHook';
@@ -54,6 +54,8 @@ const MyOrderPage = () => {
       },
     })
   }
+
+
   const { isPending: isLoadingCancel, isSuccess: isSuccessCancel, isError: isErrorCancle, data: dataCancel } = mutation
 
   useEffect(() => {
@@ -80,7 +82,7 @@ const MyOrderPage = () => {
         />
         <div style={{
           width: 260,
-          overflow: 'hidden',
+          // overflow: 'hidden',
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
           marginLeft: '10px'
@@ -94,9 +96,13 @@ const MyOrderPage = () => {
     <Loading isPending={isPending || isLoadingCancel}>
       <WrapperContainer>
         <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
-          <h4>Đơn hàng của tôi</h4>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '25px', padding: '20px' }}>
+            Đơn hàng của tôi
+          </div>
           <WrapperListOrder>
             {data?.map((order) => {
+              console.log(order.isDelivered);
+              console.log(order)
               return (
                 <WrapperItemOrder key={order?._id}>
                   <WrapperStatus>
@@ -107,7 +113,7 @@ const MyOrderPage = () => {
                     </div>
                     <div>
                       <span style={{ color: 'rgb(255, 66, 78)' }}>Thanh toán: </span>
-                      <span style={{ color: 'rgb(90, 32, 193)', fontWeight: 'bold' }}>{`${order.isPaid ? 'Thanh toán chuyển khoản khi nhận hàng' : 'Thanh toán tiền mặt'}`}</span>
+                      <span style={{ color: 'rgb(90, 32, 193)', fontWeight: 'bold' }}>{`${order.isPaid ? 'Thanh toán chuyển khoản  khi nhận hàng' : 'Thanh toán tiền mặt khi nhận hàng'}`}</span>
                     </div>
                   </WrapperStatus>
                   {renderProduct(order?.orderItems)}
@@ -119,21 +125,26 @@ const MyOrderPage = () => {
                       >{convertPrice(order?.totalPrice)}</span>
                     </div>
                     <div style={{ display: 'flex', gap: '10px' }}>
-                      <ButtonComponent
-                        onClick={() => handleCanceOrder(order)}
+                      <WrapperStatusCancel
+                        onClick={() => {
+                          if (order.isDelivered === 'Chờ xác nhận') {
+                            handleCanceOrder(order);
+                          } else {
+                            console.log("Không thể hủy đơn hàng ở trạng thái này.");
+                          }
+                        }}
                         size={40}
                         styleButton={{
                           height: '36px',
                           border: '1px solid #9255FD',
                           borderRadius: '4px',
                           background: 'rgb(255, 57, 69)'
-                          
                         }}
                         textbutton={'Hủy đơn hàng'}
                         styleTextButton={{ color: '#fff', fontSize: '14px' }}
-                        disabled={disabledButtons[order._id]}
+                        disabled={disabledButtons[order._id] || order.isDelivered !== 'Chờ xác nhận'}
                       >
-                      </ButtonComponent>
+                      </WrapperStatusCancel>
                       <ButtonComponent
                         onClick={() => handleDetailsOrder(order?._id)}
                         size={40}
@@ -143,6 +154,7 @@ const MyOrderPage = () => {
                           borderRadius: '4px'
                         }}
                         textbutton={'Xem chi tiết'}
+                        type="outline"
                         styleTextButton={{ color: '#9255FD', fontSize: '14px' }}
                       >
                       </ButtonComponent>

@@ -1,4 +1,5 @@
 import styled  from "styled-components";
+import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 
 export const WrapperStyleHeader = styled.div`
   background: rgb(255, 255, 255);
@@ -81,3 +82,17 @@ export const WrapperStatus = styled.div`
   border-bottom: 1px solid rgb(235, 235, 240);
   flex-direction:column;
 `
+
+export const WrapperStatusCancel = styled(ButtonComponent)`
+    &:hover {
+        color: #fff;
+        background: #50758c;
+        span {
+            color: #fff;
+        }
+    }
+    width: 100%;
+    color: #87b5d3;
+    text-align: center;
+    cursor: ${(props) => props.disabled ? 'not-allowed' : 'pointers'}
+    `
