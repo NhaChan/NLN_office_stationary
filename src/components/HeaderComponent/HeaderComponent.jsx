@@ -130,10 +130,6 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                 <div onClick={handleNavigateLogin} style={{ cursor: 'pointer' }}>
                   <div>
                     <WrapperTextHeaderSmall>Đăng nhập</WrapperTextHeaderSmall>
-                    {/* <div>
-                    <WrapperTextHeaderSmall>Tài khoản</WrapperTextHeaderSmall>
-                    <CaretDownOutlined />
-                  </div> */}
                   </div>
                 </div>
               )}

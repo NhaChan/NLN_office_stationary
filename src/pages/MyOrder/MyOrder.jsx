@@ -109,11 +109,11 @@ const MyOrderPage = () => {
                     <span style={{ fontSize: '14px', fontWeight: 'bold' }}>Trạng thái</span>
                     <div>
                       <span style={{ color: 'rgb(255, 66, 78)' }}>Giao hàng: </span>
-                      <span style={{ color: 'rgb(90, 32, 193)', fontWeight: 'bold' }}>{`${order.isDelivered}`}</span>
+                      <span style={{ color: '#025d99', fontWeight: 'bold' }}>{`${order.isDelivered}`}</span>
                     </div>
                     <div>
                       <span style={{ color: 'rgb(255, 66, 78)' }}>Thanh toán: </span>
-                      <span style={{ color: 'rgb(90, 32, 193)', fontWeight: 'bold' }}>{`${order.isPaid ? 'Thanh toán chuyển khoản  khi nhận hàng' : 'Thanh toán tiền mặt khi nhận hàng'}`}</span>
+                      <span style={{ color: '#4988B2', fontWeight: 'bold' }}>{`${order.isPaid ? 'Thanh toán chuyển khoản  khi nhận hàng' : 'Thanh toán tiền mặt khi nhận hàng'}`}</span>
                     </div>
                   </WrapperStatus>
                   {renderProduct(order?.orderItems)}
@@ -136,7 +136,6 @@ const MyOrderPage = () => {
                         size={40}
                         styleButton={{
                           height: '36px',
-                          border: '1px solid #9255FD',
                           borderRadius: '4px',
                           background: 'rgb(255, 57, 69)'
                         }}
@@ -150,12 +149,12 @@ const MyOrderPage = () => {
                         size={40}
                         styleButton={{
                           height: '36px',
-                          border: '1px solid #9255FD',
+                          border: '1px solid #4988B2',
                           borderRadius: '4px'
                         }}
                         textbutton={'Xem chi tiết'}
                         type="outline"
-                        styleTextButton={{ color: '#9255FD', fontSize: '14px' }}
+                        styleTextButton={{ color: '#4988B2', fontSize: '14px' }}
                       >
                       </ButtonComponent>
                     </div>
