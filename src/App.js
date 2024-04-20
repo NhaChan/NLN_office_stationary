@@ -11,12 +11,13 @@ import * as UserService from './services/UserService'
 import { useDispatch, useSelector } from 'react-redux'
 import { resetUser, updateUser } from './redux/slides/userSlide'
 import Loading from './components/LoadingComponent/Loading'
+import { isPending } from '@reduxjs/toolkit'
 
 
 function App() {
 
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false)
+  const [isPending, setIsLoading] = useState(false)
   const user = useSelector((state) => state.user)
 
   useEffect(() => {
@@ -67,6 +68,7 @@ function App() {
 
   return (
     <div>
+      <Loading isPending={isPending}>
       <Router>
         <Routes>
           {routes.map((route) => {
@@ -82,6 +84,7 @@ function App() {
           })}
         </Routes>
       </Router>
+      </Loading>
     </div>
   )
 }

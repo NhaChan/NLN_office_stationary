@@ -1,6 +1,6 @@
 import { Button, Form, Select, Space } from 'antd'
-import { PlusOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import React from 'react'
+import { PlusOutlined, DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons'
+import React, { useRef } from 'react'
 import { WrapperHeader, WrapperUploadFile } from './style'
 import TableComponent from '../TableComponent/TableComponent'
 import { useState } from 'react'
@@ -25,6 +25,7 @@ const AdminProduct = () => {
   const [isLoadingUpdate, setIsLoadingUpdate] = useState(false)
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false)
   const user = useSelector((state) => state?.user)
+  const searchInput = useRef(null);
 
   const inittial = () => ({
     name: '',
@@ -174,18 +175,121 @@ const AdminProduct = () => {
     )
   }
 
+  //Search
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+  };
+  const handleReset = (clearFilters) => {
+    clearFilters();
+  };
+
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+      <div
+        style={{
+          padding: 8,
+        }}
+        onKeyDown={(e) => e.stopPropagation()}
+      >
+        <InputComponent
+          ref={searchInput}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{
+            marginBottom: 8,
+            display: 'block',
+          }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => clearFilters && handleReset(clearFilters)}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Reset
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined
+        style={{
+          color: filtered ? '#1890ff' : undefined,
+        }}
+      />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+    onFilterDropdownOpenChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+  });
+
   const columns = [
     {
       title: 'Tên sản phẩm',
       dataIndex: 'name',
+      sorter: (a, b) => a.name.length - b.name.length,
+      ...getColumnSearchProps('name')
     },
     {
       title: 'Giá',
       dataIndex: 'price',
+      sorter: (a, b) => a.price - b.price,
+      filters: [
+        {
+          text: '>= 1000000',
+          value: '>=',
+        },
+        {
+          text: '< 1000000',
+          value: '<',
+        }
+      ],
+      onFilter: (value, record) => {
+        if (value === '>=') {
+          return record.price >= 1000000
+        }
+        return record.price < 1000000
+      },
     },
     {
       title: 'Kho',
       dataIndex: 'countInStock',
+      sorter: (a, b) => a.countInStock - b.countInStock,
+      filters: [
+        {
+          text: '>= 5',
+          value: '>=',
+        },
+        {
+          text: '< 5',
+          value: '<',
+        }
+      ],
+      onFilter: (value, record) => {
+        if (value === '>=') {
+          return Number(record.countInStock) >= 5
+        }
+        return Number(record.countInStock) <= 5
+      },
     },
     {
       title: 'Loại',

@@ -1,5 +1,5 @@
-import { Button, Form } from 'antd'
-import React from 'react'
+import { Button, Form, Space } from 'antd'
+import React, { useRef } from 'react'
 import { WrapperHeader, WrapperUploadFile } from './style'
 import TableComponent from '../TableComponent/TableComponent'
 import InputComponent from '../InputComponent/InputComponent'
@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux'
 import { useMutationHooks } from '../../hooks/useMutationHook'
 import * as UserService from '../../services/UserService'
 import { useIsFetching, useQueryClient } from '@tanstack/react-query'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons'
 
 
 const AdminUser = () => {
@@ -23,6 +23,7 @@ const AdminUser = () => {
   const [isLoadingUpdate, setIsLoadingUpdate] = useState(false)
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false)
   const user = useSelector((state) => state?.user)
+  const searchInput = useRef(null);
 
   const [stateUserDetails, setStateUserDetails] = useState({
     name: '',
@@ -124,22 +125,97 @@ const AdminUser = () => {
     )
   }
 
+  //Search
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+  };
+  const handleReset = (clearFilters) => {
+    clearFilters();
+  };
+
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+      <div
+        style={{
+          padding: 8,
+        }}
+        onKeyDown={(e) => e.stopPropagation()}
+      >
+        <InputComponent
+          ref={searchInput}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{
+            marginBottom: 8,
+            display: 'block',
+          }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => clearFilters && handleReset(clearFilters)}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Reset
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined
+        style={{
+          color: filtered ? '#1890ff' : undefined,
+        }}
+      />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+    onFilterDropdownOpenChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+  });
+
   const columns = [
     {
       title: 'Name',
       dataIndex: 'name',
+      sorter: (a, b) => a.name.length - b.name.length,
+      ...getColumnSearchProps('name')
     },
     {
       title: 'Email',
       dataIndex: 'email',
+      sorter: (a, b) => a.email.length - b.email.length,
+      ...getColumnSearchProps('email')
     },
     {
       title: 'Address',
       dataIndex: 'address',
+      sorter: (a, b) => a.address.length - b.address.length,
+      ...getColumnSearchProps('address')
     },
     {
       title: 'Phone',
       dataIndex: 'phone',
+      sorter: (a, b) => a.phone.length - b.phone.length,
+      ...getColumnSearchProps('phone')
     },
     {
       title: 'Action',
@@ -147,6 +223,7 @@ const AdminUser = () => {
       render: renderAction
     },
   ];
+
   const dataTable = users?.data?.length > 0 && users?.data
     .filter(user => !user.isAdmin) // Lọc ra những người dùng không phải là admin
     .map(user => ({ ...user, key: user._id }));
