@@ -31,13 +31,14 @@ const SignInPage = () => {
     data => UserService.loginUser(data)
   )
 
-  console.log('mutation', mutation);
+  //console.log('mutation', mutation);
   const { data, isPending, isSuccess } = mutation
 
+  //Chuyen huong den trang hien tai
   useEffect(() => {
     if (isSuccess) {
-      if (data?.status === 'ERR') {
-        error(data?.message);
+      if (location?.state) {
+        navigate(location?.state)
       }else {
         navigate('/')
       }
