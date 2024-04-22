@@ -78,7 +78,7 @@ const PaymentPage = () => {
     if (priceMemo >= 500000 && priceMemo < 1000000) {
       return 30000
     } else if (priceMemo >= 1000000 || priceMemo === 0) {
-      return 1
+      return 0
     } else {
       return 50000
     } 
