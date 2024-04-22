@@ -125,7 +125,20 @@ const MyOrderPage = () => {
                       >{convertPrice(order?.totalPrice)}</span>
                     </div>
                     <div style={{ display: 'flex', gap: '10px' }}>
-                      <WrapperStatusCancel
+                      {order.isDelivered === 'Chờ xác nhận' && <WrapperStatusCancel
+                        onClick={() => handleCanceOrder(order)}
+                        size={40}
+                        styleButton={{
+                          height: '36px',
+                          borderRadius: '4px',
+                          background: 'rgb(255, 57, 69)'
+                        }}
+                        textbutton={'Hủy đơn hàng'}
+                        styleTextButton={{ color: '#fff', fontSize: '14px' }}
+                        disabled={disabledButtons[order._id] || order.isDelivered !== 'Chờ xác nhận'}
+                      >
+                      </WrapperStatusCancel>}
+                      {/* <WrapperStatusCancel
                         onClick={() => {
                           if (order.isDelivered === 'Chờ xác nhận') {
                             handleCanceOrder(order);
@@ -143,7 +156,7 @@ const MyOrderPage = () => {
                         styleTextButton={{ color: '#fff', fontSize: '14px' }}
                         disabled={disabledButtons[order._id] || order.isDelivered !== 'Chờ xác nhận'}
                       >
-                      </WrapperStatusCancel>
+                      </WrapperStatusCancel> */}
                       <ButtonComponent
                         onClick={() => handleDetailsOrder(order?._id)}
                         size={40}
