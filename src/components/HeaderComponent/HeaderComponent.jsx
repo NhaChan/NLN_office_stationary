@@ -40,7 +40,8 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     const res = await UserService.logoutUser()
     dispatch(resetUser())
     setLoading(false)
-    console.log(res);
+    localStorage.removeItem('access_token')
+  localStorage.removeItem('refresh_token')
     navigate('/')
   }
 
@@ -82,6 +83,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   }
 
   const onSearch = (e) => {
+    // console.log('e', e.target.value)
     setSearch(e.target.value)
     dispatch(searchProduct(e.target.value))
   }
