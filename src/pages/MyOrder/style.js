@@ -62,7 +62,7 @@ export const WrapperHeaderItem = styled.div`
 export const WrapperItemOrder = styled.div`
   display: flex;
   align-items: center;
-  padding: 9px 16px;
+  padding: 15px 20px 20px 20px;
   background: #fff;
   margin-top: 12px;
   flex-direction: column;

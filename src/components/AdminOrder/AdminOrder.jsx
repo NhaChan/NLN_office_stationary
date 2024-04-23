@@ -67,9 +67,7 @@ const AdminOrder = () => {
   const renderDetail = (text, record) => (
     <Button onClick={() => navigate(`detail-order/${record._id}`, { state: { orderId: record.id } })}>
     <MoreOutlined />
-  </Button>
-
-    
+  </Button>    
   );
 
   //Search

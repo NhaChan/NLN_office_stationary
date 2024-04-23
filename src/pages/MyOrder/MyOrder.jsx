@@ -9,6 +9,7 @@ import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutationHooks } from '../../hooks/useMutationHook';
 import * as message from '../../components/Message/Message'
+import StepComponent from '../../components/StepConponent/StepComponent';
 
 const MyOrderPage = () => {
   const [disabledButtons, setDisabledButtons] = useState({});
@@ -92,6 +93,20 @@ const MyOrderPage = () => {
     })
   }
 
+  const itemsDelivery = [
+    {
+      title: 'Chờ xác nhận',
+    },
+    {
+      title: 'Đang giao hàng',
+    },
+    {
+      title: 'Đã giao hàng',
+    },
+  ]
+
+
+
   return (
     <Loading isPending={isPending || isLoadingCancel}>
       <WrapperContainer>
@@ -105,12 +120,27 @@ const MyOrderPage = () => {
               console.log(order)
               return (
                 <WrapperItemOrder key={order?._id}>
+                  {order.isDelivered === "Đã hủy" ?
+                    <button
+                      style={{
+                        backgroundColor: 'red',
+                        color: 'white',
+                        border: 'none',
+                        padding: '15px 15px',
+                        borderRadius: '10px',
+                        textAlign: 'left',
+                        fontWeight: 'bold'
+                        
+                      }}
+                    >
+                      Đã hủy
+                    </button>
+                  : <WrapperStatus>
+                    <StepComponent items={itemsDelivery} current={order.isDelivered === 'Chờ xác nhận'
+                      ? 0 : order.isDelivered === 'Đang giao hàng' ? 1 : 3} />
+                  </WrapperStatus>}
+
                   <WrapperStatus>
-                    <span style={{ fontSize: '14px', fontWeight: 'bold' }}>Trạng thái</span>
-                    <div>
-                      <span style={{ color: 'rgb(255, 66, 78)' }}>Giao hàng: </span>
-                      <span style={{ color: '#025d99', fontWeight: 'bold' }}>{`${order.isDelivered}`}</span>
-                    </div>
                     <div>
                       <span style={{ color: 'rgb(255, 66, 78)' }}>Thanh toán: </span>
                       <span style={{ color: '#4988B2', fontWeight: 'bold' }}>{`${order.isPaid ? 'Thanh toán chuyển khoản  khi nhận hàng' : 'Thanh toán tiền mặt khi nhận hàng'}`}</span>
