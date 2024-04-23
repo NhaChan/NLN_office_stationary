@@ -12,6 +12,8 @@ import { orderContant } from '../../contant'
 import { Link } from 'react-router-dom'
 import { SearchOutlined, MoreOutlined, EditOutlined } from '@ant-design/icons'
 import InputComponent from '../InputComponent/InputComponent'
+import { useNavigate } from 'react-router-dom';
+
 
 const AdminOrder = () => {
   const user = useSelector((state) => state?.user)
@@ -19,6 +21,7 @@ const AdminOrder = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const { Option } = Select;
   const searchInput = useRef(null);
+  const navigate = useNavigate()
 
 
 
@@ -62,10 +65,11 @@ const AdminOrder = () => {
   // );
 
   const renderDetail = (text, record) => (
-    console.log('id', record._id),
-    <Link Link to={{ pathname: `/detail-order/${record._id}`, state: { orderId: record.id } }}>
-      <Button type="link"><MoreOutlined /></Button>
-    </Link >
+    <Button onClick={() => navigate(`detail-order/${record._id}`, { state: { orderId: record.id } })}>
+    <MoreOutlined />
+  </Button>
+
+    
   );
 
   //Search
@@ -231,7 +235,8 @@ const AdminOrder = () => {
     {
       title: '',
       dataIndex: 'action',
-      render: renderDetail
+      render: renderDetail,
+      // onclick: () => {navigate(`detail-order/${_id}`, {state: {orderId: record.id}})}
     },
 
 

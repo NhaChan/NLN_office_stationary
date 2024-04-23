@@ -12,6 +12,7 @@ import PaymentPage from "../pages/PaymentPage/PaymentPage"
 import OrderSucess from "../pages/OrderSuccess/OrderSuccess"
 import MyOrderPage from "../pages/MyOrder/MyOrder"
 import DetailsOrderPage from "../pages/DetailsOrderPage/DetailsOrderPage"
+import AdminDetailsOrderPage from "../pages/AdminDetailsOrderPage/AdminDetailsOrderPage"
 
 export const routes = [
     {
@@ -22,12 +23,12 @@ export const routes = [
     {
         path: '/order',
         page: OrderPage,
-        isShowHeader:true
+        isShowHeader: true
     },
     {
         path: '/products',
         page: ProductsPage,
-        isShowHeader:true
+        isShowHeader: true
     },
     {
         path: '/product/:type',
@@ -80,6 +81,13 @@ export const routes = [
         isShowHeader: false,
         isPrivated: true
     },
+    {
+        path: 'system/admin/detail-order/:id',
+        page: AdminDetailsOrderPage,
+        isShowHeader: false,
+        isPrivated: true
+    },
+
     {
         path: '*',
         page: NotFoundPage
