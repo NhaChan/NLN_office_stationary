@@ -8,6 +8,8 @@ import { DeleteOutlined } from '@ant-design/icons';
 const TableComponent = (props) => {
   const { selectionType = 'checkbox', data: dataSource = [], isLoading = false, columns = [], handleDelteMany } = props
   const [rowSelectedKeys, setRowSelectedKeys] = useState([])
+  
+  //Export excel no action
   const newColumnExport = useMemo(() => {
     const arr = columns?.filter((col) => col.dataIndex !== 'action')
     return arr

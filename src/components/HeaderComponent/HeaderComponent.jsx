@@ -92,13 +92,13 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   return (
     <div >
       <WrapperHeader style={{ justifyContent: isHiddenSearch && isHiddenSearch ? 'space-between' : 'unset' }}>
-        <Col span={4} >
+        <Col span={6} >
           <WrapperTextHeader to='/' >
-              <img src={logo} style={{ maxWidth: '100px', maxHeight: '100px' }} alt="Logo" />
+              <img src={logo} style={{ maxWidth: '200px', maxHeight: '200px' }} alt="Logo" />
           </WrapperTextHeader>
         </Col>
         {!isHiddenSearch && (
-          <Col span={14}>
+          <Col span={12}>
             <ButttonInputSearch
               size="large"
               variant="outlined"
