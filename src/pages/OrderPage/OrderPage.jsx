@@ -44,6 +44,18 @@ const OrderPage = () => {
       setListChecked([...listChecked, e.target.value])
     }
   };
+  
+  const handleOnchangeCheckAll = (e) => {
+    if (e.target.checked) {
+      const newListChecked = []
+      order?.orderItems?.forEach((item) => {
+        newListChecked.push(item?.product)
+      })
+      setListChecked(newListChecked)
+    } else {
+      setListChecked([])
+    }
+  }
 
   const handleChangeCount = (type, idProduct, limited) => {
     if (type === 'increase') {
@@ -60,28 +72,19 @@ const OrderPage = () => {
   const handleDeleteOrder = (idProduct) => {
     console.log('id',idProduct)
     dispatch(removeOrderProduct({ idProduct }))
-  console.log('remove',dispatch(removeOrderProduct({ idProduct })))
+  // console.log('remove',dispatch(removeOrderProduct({ idProduct })))
 
   }
 
 
-  const handleOnchangeCheckAll = (e) => {
-    if (e.target.checked) {
-      const newListChecked = []
-      order?.orderItems?.forEach((item) => {
-        newListChecked.push(item?.product)
-      })
-      setListChecked(newListChecked)
-    } else {
-      setListChecked([])
-    }
-  }
 
   useEffect(() => {
     dispatch(selectedOrder({ listChecked }))
-  console.log(listChecked)
+  // console.log(listChecked)
   }, [listChecked])
 
+
+  //Lay thong tin nguoi dung tu csdl
   useEffect(() => {
     form.setFieldsValue(stateUserDetails)
   }, [form, stateUserDetails])
@@ -111,7 +114,7 @@ const OrderPage = () => {
   const priceDiscountMemo = useMemo(() => {
     const result = order?.orderItemsSlected?.reduce((total, cur) => {
       const totalDiscount = cur.discount ? cur.discount : 0
-      return total + (priceMemo * (totalDiscount * cur.amount) / 100)
+      return total + ((priceMemo * totalDiscount) / 100)
     }, 0)
     if (Number(result)) {
       return result
@@ -173,6 +176,8 @@ const OrderPage = () => {
     form.resetFields()
     setIsOpenModalUpdateInfo(false)
   }
+
+  //Update user
   const handleUpdateInforUser = () => {
     const { name, address, city, phone } = stateUserDetails
     if (name && address && city && phone) {
@@ -230,7 +235,7 @@ const OrderPage = () => {
                 <CustomCheckbox onChange={handleOnchangeCheckAll} checked={listChecked?.length === order?.orderItems?.length} ></CustomCheckbox>
                 <span> Tất cả {order?.orderItems?.length} sản phẩm</span>
               </span>
-              <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                 <span>Đơn giá</span>
                 <span>Số lượng</span>
                 <span>Thành tiền</span>
@@ -246,7 +251,7 @@ const OrderPage = () => {
                       <img src={ order?.image } style={{ width: '77px', height: '79px', objectFit: 'cover' }} />
                       <div style={{
                         width: 260,
-                        // overflow: 'hidden',
+                        overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         whiteSpace: 'nowrap'
                       }}>{order?.name}</div>

@@ -83,7 +83,7 @@ const MyOrderPage = () => {
         />
         <div style={{
           width: 260,
-          // overflow: 'hidden',
+          overflow: 'hidden',
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
           marginLeft: '10px'
@@ -96,12 +96,15 @@ const MyOrderPage = () => {
   const itemsDelivery = [
     {
       title: 'Chờ xác nhận',
+      description: 'Đã đặt hàng & Đang chờ xác nhận',
     },
     {
       title: 'Đang giao hàng',
+      description: 'Đang vận chuyển',
     },
     {
       title: 'Đã giao hàng',
+      description: 'Giao hàng thành công',
     },
   ]
 
@@ -116,14 +119,14 @@ const MyOrderPage = () => {
           </div>
           <WrapperListOrder>
             {data?.map((order) => {
-              console.log(order.isDelivered);
-              console.log(order)
+              // console.log(order.isDelivered);
+              // console.log(order)
               return (
                 <WrapperItemOrder key={order?._id}>
                   {order.isDelivered === "Đã hủy" ?
                     <button
                       style={{
-                        backgroundColor: 'red',
+                        backgroundColor: 'orange',
                         color: 'white',
                         border: 'none',
                         padding: '15px 15px',
@@ -137,7 +140,7 @@ const MyOrderPage = () => {
                     </button>
                   : <WrapperStatus>
                     <StepComponent items={itemsDelivery} current={order.isDelivered === 'Chờ xác nhận'
-                      ? 0 : order.isDelivered === 'Đang giao hàng' ? 1 : 3} />
+                      ? 1 : order.isDelivered === 'Đang giao' ? 2 : 3} />
                   </WrapperStatus>}
 
                   <WrapperStatus>

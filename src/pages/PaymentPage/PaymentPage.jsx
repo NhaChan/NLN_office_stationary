@@ -66,7 +66,7 @@ const PaymentPage = () => {
   const priceDiscountMemo = useMemo(() => {
     const result = order?.orderItemsSlected?.reduce((total, cur) => {
       const totalDiscount = cur.discount ? cur.discount : 0
-      return total + (priceMemo * (totalDiscount  * cur.amount) / 100)
+      return total + ((priceMemo * totalDiscount) / 100)
     },0)
     if(Number(result)){
       return result
@@ -145,13 +145,12 @@ const PaymentPage = () => {
     // console.log('thongbao',dataAdd?.status)
     if (isSuccess && dataAdd?.status === 'OK') {
       const arrayOrdered = []
-      // console.log('2', arrayOrdered)
-      // console.log('1',order?.orderItemsSlected)
       order?.orderItemsSlected?.forEach((element) => {
       // console.log('order',element.product)
         arrayOrdered.push(element.product)
       });
-      dispatch(removeAllOrderProduct({listChecked: arrayOrdered}))
+
+      dispatch(removeAllOrderProduct({listChecked: arrayOrdered})) //Xoa so luong tren gio hang
       message.success('Đặt hàng thành công')
       navigate('/orderSuccess', {
         state: {
@@ -235,8 +234,8 @@ const PaymentPage = () => {
                 <WrapperInfo>
                   <div>
                     <span>Địa chỉ: </span>
-                    <span style={{fontWeight: 'bold'}}>{ `${user?.address} ${user?.city}`} </span>
-                    <span onClick={handleChangeAddress} style={{color: '#9255FD', cursor:'pointer'}}>Thay đổi</span>
+                    <span style={{fontWeight: 'bold'}}>{ `${user?.address} - ${user?.city}`} </span>
+                    <span onClick={handleChangeAddress} style={{color: '#4988B2', cursor:'pointer'}}>Thay đổi</span>
                   </div>
                 </WrapperInfo>
                 <WrapperInfo>

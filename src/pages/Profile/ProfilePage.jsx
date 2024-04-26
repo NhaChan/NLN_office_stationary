@@ -80,7 +80,8 @@ const ProfilePage = () => {
     }
     return (
         <div style={{ width: '1270px', margin: '0 auto', height: '500px' }}>
-            <WrapperHeader>Thông tin cá nhân</WrapperHeader>
+            {/* <WrapperHeader>Thông tin cá nhân</WrapperHeader> */}
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '25px', padding: '20px' }}>Thông tin cá nhân</div>
             <Loading isPending={isPending}>
                 <WrapperContentProfile>
                     <WrapperInput>
@@ -94,7 +95,7 @@ const ProfilePage = () => {
                     <WrapperInput>
                         <WrapperLabel htmlFor="phone">Phone</WrapperLabel>
                         <InputForm style={{ width: '300px' }} id="email" value={phone} onChange={handleOnchangePhone} />
-                        
+
                     </WrapperInput>
                     <WrapperInput>
                         <WrapperLabel htmlFor="avatar">Avatar</WrapperLabel>
@@ -110,7 +111,7 @@ const ProfilePage = () => {
                             }} alt="avatar" />
                         )}
                         {/* <InputForm style={{ width: '300px' }} id="avatar" value={avatar} onChange={handleOnchangeAvatar} /> */}
-                        
+
                     </WrapperInput>
                     <WrapperInput>
                         <WrapperLabel htmlFor="address">Address</WrapperLabel>

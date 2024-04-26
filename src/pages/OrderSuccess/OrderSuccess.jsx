@@ -11,7 +11,7 @@ const OrderSuccess = () => {
   return (
     <div style={{ background: '#f5f5fa', width: '100%', minHeight: '100vh', display: 'flex', justifyContent: 'center' }}>
       <WrapperContainer>
-        <h3 style={{ textAlign: 'center' }}>Đơn hàng đặt thành công</h3>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '25px', padding: '20px' }}>Giỏ hàng của tôi</div>
         <div style={{ padding: '20px' }}>
           {state && (
             <>

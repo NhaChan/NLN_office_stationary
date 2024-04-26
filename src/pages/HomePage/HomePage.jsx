@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import TypeProduct from "../../components/TypeProduct/TypeProduct";
 import { WrapperButtonMore, WrapperProducts, WrapperTypeProduct } from "./style";
 import SliderComponent from "../../components/SliderComponent/SliderComponent";
-import slider1 from '../../assets/images/S1.png';
+import slider1 from '../../assets/images/S2.png';
 import slider2 from '../../assets/images/S4.png';
 import slider3 from '../../assets/images/S3.png';
 import CardComponent from "../../components/CardComponent/CardComponent";
@@ -17,7 +17,7 @@ import { useDebounce } from "../../hooks/useDebounce";
 
 const HomePage = () => {
     const searchProduct = useSelector((state) => state?.product?.search)
-    const searchDebounce = useDebounce(searchProduct, 500)
+    const searchDebounce = useDebounce(searchProduct, 300)
     const [loading, setLoading] = useState(false)
     const [limit, setLimit] = useState(6)
     const [typeProducts, setTypeProducts] = useState([])
@@ -60,7 +60,7 @@ const HomePage = () => {
                 </WrapperTypeProduct>
             </div>
             <div className='body' style={{ width: '100%', backgroundColor: '#efefef', }}>
-                <div id="container" style={{ height: '1000px', width: '1270px', margin: '0 auto' }}>
+                <div id="container" style={{ height: '1400px', width: '1270px', margin: '0 auto' }}>
                     <SliderComponent arrImages={[slider1, slider2, slider3]} />
                     <WrapperProducts>
                         {products?.data?.map((product) => {

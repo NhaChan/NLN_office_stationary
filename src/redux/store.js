@@ -13,13 +13,12 @@ import {
   REGISTER,
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import productSlide from './slides/productSlide'
 
 const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  blacklist: ['product','user']
+  blacklist: ['product','user'] // khong luu
 }
 
 const rootReducer = combineReducers({

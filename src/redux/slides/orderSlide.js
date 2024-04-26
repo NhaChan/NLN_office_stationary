@@ -24,6 +24,7 @@ export const orderSlide = createSlice({
   reducers: {
     addOrderProduct: (state, action) => {
       const {orderItem} = action.payload
+      //Kiem tra da ton tai tron gio hang chua
       const itemOrder = state?.orderItems?.find((item) => item?.product === orderItem.product)
       if(itemOrder){
         if(itemOrder.amount <= itemOrder.countInstock) {
@@ -53,7 +54,7 @@ export const orderSlide = createSlice({
       const itemOrderSelected = state?.orderItemsSlected?.find((item) => item?.product === idProduct)
       itemOrder.amount--;
       if(itemOrderSelected) {
-        itemOrderSelected.amount--;
+        itemOrderSelected.amount--; //Thay đoi khi check all
       }
     },
     removeOrderProduct: (state, action) => {
