@@ -189,11 +189,13 @@ const AdminOrder = () => {
       ],
       onFilter: (value, record) => {
         if (value === '>=') {
-          return record.price >= 3000000
+          return record.totalPrice >= 3000000;
+        } else {
+          return record.totalPrice < 3000000;
         }
-        return record.price < 3000000
       },
     },
+    
     {
       title: 'Trạng thái',
       dataIndex: 'isDelivered',
@@ -243,7 +245,7 @@ const AdminOrder = () => {
 
   const dataTable = orders?.data?.length && orders?.data?.map((order) => {
     // console.log('user', order)
-    return { ...order, key: order._id, userName: order?.shippingAddress?.fullName, phone: order?.shippingAddress?.phone, address: order?.shippingAddress?.address, paymentMethod: orderContant.payment[order?.paymentMethod], totalPrice: convertPrice(order?.totalPrice) }
+    return { ...order, key: order._id, userName: order?.shippingAddress?.fullName, phone: order?.shippingAddress?.phone, address: order?.shippingAddress?.address, paymentMethod: orderContant.payment[order?.paymentMethod], totalPrice: order?.totalPrice }
   })
 
   return (

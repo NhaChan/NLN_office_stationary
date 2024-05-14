@@ -83,7 +83,7 @@ const MyOrderPage = () => {
         />
         <div style={{
           width: 260,
-          overflow: 'hidden',
+          // overflow: 'hidden',
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
           marginLeft: '10px'

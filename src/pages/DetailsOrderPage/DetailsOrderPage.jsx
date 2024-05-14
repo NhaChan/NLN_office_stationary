@@ -68,7 +68,7 @@ const DetailsOrderPage = () => {
               <WrapperLabel>Hình thức giao hàng</WrapperLabel>
               <WrapperContentInfo>
                 <div className="delivery-info">
-                  <span className="name-delivery">Giao hàng TIẾT KIỆM </span>
+                  <span className="name-delivery">Giao hàng NHANH</span>
                 </div>
                 <div className="delivery-fee">
                   <span>Phí giao hàng: </span> {data?.shippingPrice}VND
@@ -79,7 +79,7 @@ const DetailsOrderPage = () => {
               <WrapperLabel>Hình thức thanh toán</WrapperLabel>
               <WrapperContentInfo>
                 <div className="payment-info"></div>
-                <div className="status-payment">{data?.isPaid ? 'Thanh toán tiền mặt khi nhận hàng' : 'Thanh toán chuyển khoản khi nhận hàng'}</div>
+                <div className="status-payment">{data?.isPaid ? 'Thanh toán chuyển khoản khi nhận hàng' : 'Thanh toán tiền mặt khi nhận hàng'}</div>
               </WrapperContentInfo>
             </WrapperInfoUser>
           </WrapperHeaderUser>

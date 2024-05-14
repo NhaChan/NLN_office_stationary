@@ -60,7 +60,7 @@ const HomePage = () => {
                 </WrapperTypeProduct>
             </div>
             <div className='body' style={{ width: '100%', backgroundColor: '#efefef', }}>
-                <div id="container" style={{ height: '1400px', width: '1270px', margin: '0 auto' }}>
+                <div id="container" style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
                     <SliderComponent arrImages={[slider1, slider2, slider3]} />
                     <WrapperProducts>
                         {products?.data?.map((product) => {

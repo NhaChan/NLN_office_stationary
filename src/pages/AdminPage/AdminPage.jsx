@@ -106,9 +106,6 @@ const AdminPage = () => {
           onClick={handleOnCLick}
         />
         <div style={{ flex: 1, padding: '15px 0 15px 15px' }}>
-          {/* {!keySelected && memoCount && Object.keys(memoCount).length !== 3 && (
-            <div data={memoCount} colors={COLORS} setKeySelected={setKeySelected} />
-          )} */}
           {renderPage(keySelected)}
         </div>
       </div>

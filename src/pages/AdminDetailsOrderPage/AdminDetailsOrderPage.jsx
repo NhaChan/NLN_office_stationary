@@ -74,7 +74,7 @@ const DetailsOrderPage = () => {
               <WrapperLabel>Hình thức giao hàng</WrapperLabel>
               <WrapperContentInfo>
                 <div className="delivery-info">
-                  <span className="name-delivery">Giao hàng TIẾT KIỆM </span>
+                  <span className="name-delivery">Giao hàng NHANH </span>
                 </div>
                 <div className="delivery-fee">
                   <span>Phí giao hàng: </span> {data?.shippingPrice}VND
